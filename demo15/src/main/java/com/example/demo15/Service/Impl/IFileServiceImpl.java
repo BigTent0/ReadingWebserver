@@ -1,6 +1,7 @@
 package com.example.demo15.Service.Impl;
 
 import com.example.demo15.Common.ServerResponse;
+import com.example.demo15.Model.BookBean;
 import com.example.demo15.Service.IFileService;
 import com.example.demo15.dao.FileDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +9,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service("IFileService")
 public class IFileServiceImpl implements IFileService {
@@ -144,5 +144,15 @@ public class IFileServiceImpl implements IFileService {
     @Override
     public String getFileName() {
         return name;
+    }
+
+    @Override
+    public ServerResponse<List<BookBean>> getLastBooks()
+    {
+        List<BookBean> bookBeans=fileDao.getLastBookBeans();
+        if(bookBeans==null) {
+            return ServerResponse.createErrorMessage("请求失败");
+        }
+        return ServerResponse.createSuccessMessageAndData("成功",bookBeans);
     }
 }

@@ -35,4 +35,8 @@
     <select id="getBookBeans" resultType="BookBean">
     select FileName,FileNum from file where FileName=#{fileName}
     </select>
+
+    <select id="getLastBookBeans" resultType="BookBean">
+        select * from file order by FileNum DESC limit 5
+    </select>
 </mapper>

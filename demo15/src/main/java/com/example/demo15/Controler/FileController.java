@@ -51,4 +51,10 @@ public class FileController {
     {
         return searchService.search(fileName);
     }
+
+    @RequestMapping("/getLastBooks")
+    public ServerResponse<List<BookBean>> getLastBooks()
+    {
+        return fileService.getLastBooks();
+    }
 }

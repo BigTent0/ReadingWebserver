@@ -31,4 +31,6 @@ public interface FileDao {
 
     public List<BookBean> getBookBeans(@Param("fileName")String fileName);
 
+    public List<BookBean> getLastBookBeans();
+
 }
