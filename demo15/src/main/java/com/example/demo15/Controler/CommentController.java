@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,11 +22,11 @@ public class CommentController {
     ICommentService commentService;
     @RequestMapping("/addComment")
     @ResponseBody
-    public ServerResponse addComment(@RequestBody Comment comment){
+    public ServerResponse addComment(@RequestBody Comment comment, @RequestParam("file") MultipartFile file){
         if(null==comment||comment.getUserid()==0){
             return ServerResponse.createErrorMessage("发布失败,服务器响应失败");
         }
-        if(commentService.addOneComment(comment)){
+        if(commentService.addOneComment(comment,file)){
             return ServerResponse.createSuccessMessage("评论发布成功");
         }
         return ServerResponse.createErrorMessage("操作响应失败");

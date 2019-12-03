@@ -4,6 +4,7 @@ import com.example.demo15.Common.ServerResponse;
 import com.example.demo15.Model.BookBean;
 import com.example.demo15.Service.IFileService;
 import com.example.demo15.dao.FileDao;
+import com.example.demo15.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -80,14 +81,11 @@ public class IFileServiceImpl implements IFileService {
         ServerResponse response;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String time = dateFormat.format(new Date());
-        if(!file.isEmpty()){
+        String basePath= FileUtil.saveFile(file,id,baseDir,time);
+        if(!(basePath==null)){
             try {
-                String parDir = baseDir+id+"/";
-                File temp = new File(parDir);
-                if(!temp.exists()){
-                    temp.mkdirs();
-                }
-                String basePath = parDir+time+"_"+file.getOriginalFilename();
+
+
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(basePath);
                 Files.write(path,bytes);

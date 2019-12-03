@@ -53,3 +53,6 @@ pagehelper:
 #book
 book:
   baseDir: /books/
+
+image:
+  baseDir: /images/
